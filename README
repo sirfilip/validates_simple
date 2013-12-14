@@ -1,0 +1,4 @@
+### Simple validator that validates hashes
+
+I needed a simple validation utility that i can use to validate params,
+json etc. So i am creating one.
