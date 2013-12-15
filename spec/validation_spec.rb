@@ -71,6 +71,45 @@ describe Validation do
     end
   end
 
+  describe '#validates_greather_or_equal_then' do 
+    it "checks if the field is greather or equal then some number" do
+      validator.validates_greather_or_equal_then('age', 18, 'Age must be greather or equal then 18')
+      validator.validate({'age' => 19}).should be_true
+      validator.validate({'age' => 18}).should be_true
+      validator.validate({'age' => 17}).should be_false
+    end
+  end
+
+  describe '#validates_less_then' do 
+    it "checks if the field is less then some number" do
+      validator.validates_less_then('age', 18, 'Age must be under 18')
+      validator.validate({'age' => 17}).should be_true
+      validator.validate({'age' => 18}).should be_false
+      validator.validate({'age' => 19}).should be_false
+    end
+  end
+
+  describe '#validates_less_or_equal_then' do 
+    it "checks if the field is less or equal then some number" do
+      validator.validates_less_or_equal_then('age', 18, 'Age must be under 18')
+      validator.validate({'age' => 17}).should be_true
+      validator.validate({'age' => 18}).should be_true
+      validator.validate({'age' => 19}).should be_false
+    end
+  end
+
+  describe '#validates_lenght_of_within' do
+    it 'checks if the length is within some bounderies' do
+      validator.validates_length_of_within('username', 3, 10, 'Length should be between 3 and 10 chars')
+      validator.validate({'username' => 'u' * 3}).should be_true
+      validator.validate({'username' => 'u' * 5}).should be_true
+      validator.validate({'username' => 'u' * 10}).should be_true
+      validator.validate({'username' => 'u'}).should be_false
+      validator.validate({'username' => 'u' * 11}).should be_false
+      validator.validate({'nousername' => true}).should be_false
+    end
+  end
+
   describe 'a simple sample of successfull validation' do
     it "validates successfully" do
       validator.validates_presence_of('username', 'Username is required')

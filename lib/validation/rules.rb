@@ -25,7 +25,7 @@ module Validation
       @rules << {:callback => callback, :message => Error.new(field, message)}
     end
 
-    def validates_format_of(field, regex, message)
+    def validates_format_of(field, regex, message='')
       validates_presence_of(field, message)
 
       callback = lambda do |data| 
@@ -38,15 +38,64 @@ module Validation
       @rules << {:callback => callback, :message => Error.new(field, message)}
     end
 
-    def validates_numericality_of(field, message)
+    def validates_numericality_of(field, message='')
       validates_presence_of(field, message)
       validates_format_of(field, /^\d+(\.\d+)?$/, message)
     end
 
-    def validates_greather_then(field, number, message)
+    def validates_greather_then(field, number, message='')
       validates_numericality_of(field, message)
       callback = lambda do |data|
         if data[field] > number
+          true
+        else
+          false
+        end
+      end
+      @rules << {:callback => callback, :message => Error.new(field, message)}
+    end
+
+    def validates_greather_or_equal_then(field, number, message='')
+      validates_numericality_of(field, message)
+      callback = lambda do |data|
+        if data[field] >= number
+          true
+        else
+          false
+        end
+      end
+      @rules << {:callback => callback, :message => Error.new(field, message)}
+    end
+
+    def validates_less_then(field, number, message='')
+      validates_numericality_of(field, message)
+      callback = lambda do |data|
+        if data[field] < number
+          true
+        else
+          false
+        end
+      end
+      @rules << {:callback => callback, :message => Error.new(field, message)}
+    end
+
+    def validates_less_or_equal_then(field, number, message='')
+      validates_numericality_of(field, message)
+      callback = lambda do |data|
+        if data[field] <= number
+          true
+        else
+          false
+        end
+      end
+      @rules << {:callback => callback, :message => Error.new(field, message)}
+    end
+
+    def validates_length_of_within(field, min, max, message='')
+      validates_presence_of(field, message)
+      callback = lambda do |data|
+        length = data[field].length
+        if length >= min && length <= max
           true
         else
           false
