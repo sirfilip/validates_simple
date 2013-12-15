@@ -1,4 +1,4 @@
-require 'validation'
+require 'validates_simple'
 
 describe Validation do
   let(:validator) { Validation::Validator.new }
