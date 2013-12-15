@@ -16,6 +16,7 @@ module Validation
     def validate data
       @errors = {}
       @rules.each do |rule|
+        next if @errors[rule[:message].field]
         @errors[rule[:message].field] = rule[:message] unless rule[:callback].call(data)
       end
       valid?

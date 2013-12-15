@@ -39,8 +39,35 @@ describe Validation do
 
     it 'validates false if confirmation is different or absent' do
       validator.validates_confirmation_of('password', 'Password confirmation failed')
+      validator.validate({'somefield' => 'other'}).should be_false
       validator.validate({'password' => '123', 'password_confirmation' => '1234'}).should be_false
       validator.validate({'password' => '123'}).should be_false
+    end
+  end
+
+  describe '#validates_format_of' do
+    it "ensures that the field is in the right format" do
+      validator.validates_format_of('email', /.+@.+\.(com|org|net)/, ':field is not in the right format')
+      validator.validate({'email' => 'someemail@example.com'}).should be_true
+      validator.validate({'email' => 'someemail'}).should be_false
+    end
+  end
+
+  describe '#validates_numericality_of' do 
+    it 'ensures that the field is a number' do 
+      validator.validates_numericality_of('age', 'Age must be a number')
+      validator.validate({'age' => '2323'}).should be_true
+      validator.validate({'age' => '1223asdasd'}).should be_false
+      validator.validate({'something' => 'otherthing'}).should be_false
+    end
+  end
+
+  describe '#validates_greather_then' do 
+    it "checks if the field is greather then some number" do
+      validator.validates_greather_then('age', 18, 'Age must be greather then 18')
+      validator.validate({'age' => 19}).should be_true
+      validator.validate({'age' => 18}).should be_false
+      validator.validate({'age' => 17}).should be_false
     end
   end
 
