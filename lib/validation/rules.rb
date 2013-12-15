@@ -1,5 +1,10 @@
 module Validation
   module Rules
+
+    def validates(field, callback, message)
+      @rules << {:callback => callback, :message => Error.new(field, message)}
+    end
+
     def validates_presence_of(field, message='')
       callback = lambda do |data|
         if data.has_key? field
@@ -8,7 +13,7 @@ module Validation
           false
         end
       end
-      @rules << {:callback => callback, :message => Error.new(field, message)}
+      validates(field, callback, message)
     end
 
     def validates_confirmation_of(field, message='')
@@ -22,7 +27,7 @@ module Validation
           false
         end
       end
-      @rules << {:callback => callback, :message => Error.new(field, message)}
+      validates(field, callback, message)
     end
 
     def validates_format_of(field, regex, message='')
@@ -35,7 +40,7 @@ module Validation
           false
         end
       end
-      @rules << {:callback => callback, :message => Error.new(field, message)}
+      validates(field, callback, message)
     end
 
     def validates_numericality_of(field, message='')
@@ -52,7 +57,7 @@ module Validation
           false
         end
       end
-      @rules << {:callback => callback, :message => Error.new(field, message)}
+      validates(field, callback, message)
     end
 
     def validates_greather_or_equal_then(field, number, message='')
@@ -64,7 +69,7 @@ module Validation
           false
         end
       end
-      @rules << {:callback => callback, :message => Error.new(field, message)}
+      validates(field, callback, message)
     end
 
     def validates_less_then(field, number, message='')
@@ -76,7 +81,7 @@ module Validation
           false
         end
       end
-      @rules << {:callback => callback, :message => Error.new(field, message)}
+      validates(field, callback, message)
     end
 
     def validates_less_or_equal_then(field, number, message='')
@@ -88,7 +93,7 @@ module Validation
           false
         end
       end
-      @rules << {:callback => callback, :message => Error.new(field, message)}
+      validates(field, callback, message)
     end
 
     def validates_length_of_within(field, min, max, message='')
@@ -101,7 +106,7 @@ module Validation
           false
         end
       end
-      @rules << {:callback => callback, :message => Error.new(field, message)}
+      validates(field, callback, message)
     end
   end 
 end

@@ -9,10 +9,6 @@ module Validation
       @errors = {}
     end
 
-    def validates(field, callback, message)
-      @rules << {:callback => callback, :message => Error.new(field, message)}
-    end
-
     def validate data
       @errors = {}
       @rules.each do |rule|
