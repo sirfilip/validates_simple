@@ -1,7 +1,7 @@
 require 'validation'
 
 
-describe Validation::Validator do
+describe Validation do
   let(:validator) { Validation::Validator.new }
 
   describe "#validates" do

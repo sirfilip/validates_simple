@@ -1,6 +1,6 @@
 require 'validation'
 
-describe Validation::Validator do
+describe Validation do
   let(:validator) { Validation::Validator.new }
   describe '#validates_confirmation_of' do
     it 'validates true if confirmation is present' do
