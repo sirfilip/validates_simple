@@ -21,14 +21,14 @@ json etc. So i am creating one.
 
 2. It can reuse defined validations when defining one
 
-       module Validation
-         module Rules
-           def validates_numericality_of(field, message='')
-             validates_presence_of(field)
-             validates_format_of(field, /^\d+(\.\d+)?$/
-           end
-         end
-       end
+        module Validation
+          module Rules
+            def validates_numericality_of(field, message='')
+              validates_presence_of(field)
+              validates_format_of(field, /^\d+(\.\d+)?$/
+            end
+          end
+        end
 
 3. It should provide some predefined validations
   * validates_presence_of - checks if the field is present and it is not nil or empty string
