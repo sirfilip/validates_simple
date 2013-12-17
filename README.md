@@ -14,6 +14,7 @@ json etc. So i am creating one.
                 else
                   false
                 end
+              end
               validates(field, callback, message)
             end
           end
@@ -37,7 +38,8 @@ json etc. So i am creating one.
   * validates_numericality_of - checks if a field is a correct number format
   * validates_greather_then - checks if a field is greather then some value
   * validates_less_then - checks if a field is less then some value
-  * etc
+  * validates_length_of_within - checks if the length is in some bounds
+  * validates_option_in - checks if the field is one of allowed options
 
 For additional info check the specs for usage [validates simple specs](https://github.com/sirfilip/validates_simple/blob/master/spec/validation_spec.rb)
 

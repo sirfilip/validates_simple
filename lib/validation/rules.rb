@@ -108,5 +108,18 @@ module Validation
       end
       validates(field, callback, message)
     end
+
+    def validates_option_in(field, options, message='')
+      validates_presence_of(field, message)
+      callback = lambda do |data|
+        if options.include? data[field]
+          true
+        else
+          false
+        end
+      end
+      validates(field, callback, message)
+    end
+
   end 
 end

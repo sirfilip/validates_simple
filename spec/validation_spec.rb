@@ -113,6 +113,15 @@ describe Validation do
     end
   end
 
+  describe '#validates_option_in' do
+    it 'checks if the option is one of the predefined' do
+      validator.validates_option_in('subscription', ['basic', 'premium'], 'Subscription must be basic or premium')
+      validator.validate({'subscription' => 'basic'}).should be_true
+      validator.validate({'subscription' => 'other'}).should be_false
+      validator.validate({'other-field' => 42}).should be_false
+    end
+  end
+
   describe 'a simple sample of successfull validation' do
     it "validates successfully" do
       validator.validates_presence_of('username', 'Username is required')
