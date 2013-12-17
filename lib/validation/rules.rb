@@ -7,7 +7,7 @@ module Validation
 
     def validates_presence_of(field, message='')
       callback = lambda do |data|
-        if data.has_key? field
+        if data.has_key?(field) && data[field].to_s !~ /^\s*$/
           true
         else
           false

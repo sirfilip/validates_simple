@@ -18,10 +18,13 @@ describe Validation do
      validator.should_not be_valid
     end
 
-    it "succeeds if field is inside the hash" do
+    it "succeeds if field is inside the hash and it is a non blank string or nil" do
       validator.validates_presence_of('fieldname', ':field is required')
-      validator.validate({'fieldname' => ''}).should be_true
-      validator.should be_valid
+      validator.validate({'fieldname' => 'someval'}).should be_true
+      validator.validate({'fieldname' => 123}).should be_true
+      validator.validate({'fieldname' => nil}).should be_false
+      validator.validate({'fieldname' => ''}).should be_false
+      validator.validate({'fieldname' => ' '}).should be_false
     end
 
     it "returns the correct error message" do
