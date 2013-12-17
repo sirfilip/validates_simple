@@ -11,6 +11,16 @@ describe Validation do
     end
   end
 
+  describe '#validates_presence_of_field' do 
+    it 'checks if the field is present regardless of the value' do
+      validator.validates_presence_of_field('a field')
+      validator.validate({'a field' => false}).should be_true
+      validator.validate({'a field' => nil}).should be_true
+      validator.validate({'a field' => ''}).should be_true
+      validator.validate({'another field' => false}).should be_false
+    end
+  end
+
   describe "#validates presence of" do
     it "fails if field is not inside of the hash" do
      validator.validates_presence_of('fieldname', ":field is required")
@@ -119,6 +129,14 @@ describe Validation do
       validator.validate({'subscription' => 'basic'}).should be_true
       validator.validate({'subscription' => 'other'}).should be_false
       validator.validate({'other-field' => 42}).should be_false
+    end
+  end
+
+  describe '#validates_url_format_of' do
+    it 'checks if the url is in a correct format' do
+      validator.validates_url_format_of('url', 'Url format is not allowed')
+      validator.validate({'url' => 'http://google.com'}).should be_true
+      validator.validate({'url' => 'f:||asdsdfsadf'}).should be_false
     end
   end
 

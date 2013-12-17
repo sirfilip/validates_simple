@@ -5,9 +5,20 @@ module Validation
       @rules << {:callback => callback, :message => Error.new(field, message)}
     end
 
+    def validates_presence_of_field(field, message='')
+      callback = lambda do |data|
+        if data.has_key?(field)
+          true
+        else
+          false
+        end
+      end
+      validates(field, callback, message)
+    end
+
     def validates_presence_of(field, message='')
       callback = lambda do |data|
-        if data.has_key?(field) && data[field].to_s !~ /^\s*$/
+        if data.fetch(field, nil).to_s !~ /\A\s*\z/
           true
         else
           false
@@ -116,6 +127,20 @@ module Validation
           true
         else
           false
+        end
+      end
+      validates(field, callback, message)
+    end
+
+    def validates_url_format_of(field, message='')
+      require 'uri'
+      validates_presence_of(field, message)
+      callback = lambda do |data|
+        url = URI.parse(data[field]) rescue nil
+        if url.nil?
+          false
+        else
+          true
         end
       end
       validates(field, callback, message)
