@@ -43,4 +43,5 @@ For additional info check the specs for usage [validates simple specs](https://g
 
 
 License: MIT
+
 [![Gem Version](https://badge.fury.io/rb/validates_simple.png)](http://badge.fury.io/rb/validates_simple)
