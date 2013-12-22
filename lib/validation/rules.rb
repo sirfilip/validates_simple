@@ -62,7 +62,7 @@ module Validation
     def validates_greather_then(field, number, message='')
       validates_numericality_of(field, message)
       callback = lambda do |data|
-        if data[field] > number
+        if data[field].to_f > number.to_f
           true
         else
           false
@@ -74,7 +74,7 @@ module Validation
     def validates_greather_or_equal_then(field, number, message='')
       validates_numericality_of(field, message)
       callback = lambda do |data|
-        if data[field] >= number
+        if data[field].to_f >= number.to_f
           true
         else
           false
@@ -86,7 +86,7 @@ module Validation
     def validates_less_then(field, number, message='')
       validates_numericality_of(field, message)
       callback = lambda do |data|
-        if data[field] < number
+        if data[field].to_f < number.to_f
           true
         else
           false
@@ -98,7 +98,7 @@ module Validation
     def validates_less_or_equal_then(field, number, message='')
       validates_numericality_of(field, message)
       callback = lambda do |data|
-        if data[field] <= number
+        if data[field].to_f <= number.to_f
           true
         else
           false

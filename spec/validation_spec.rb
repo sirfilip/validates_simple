@@ -107,8 +107,10 @@ describe Validation do
       validator.validates_less_or_equal_then('age', 18, 'Age must be under 18')
       validator.validate({'age' => 17}).should be_true
       validator.validate({'age' => 18}).should be_true
+      validator.validate({'age' => '18'}).should be_true
       validator.validate({'age' => 19}).should be_false
     end
+
   end
 
   describe '#validates_lenght_of_within' do
